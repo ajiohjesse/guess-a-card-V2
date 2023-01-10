@@ -1,0 +1,108 @@
+@import "../assets/fonts/fonts.css";
+
+:root {
+  /* Light mode colors */
+  --light-primary-color: ;
+  --light-secondary-color: ;
+  --light-tertiary-color: ;
+  --light-text-color: ;
+  --light-text-muted-color: ;
+  --light-link-color: ;
+  --light-primary-bg-color: ;
+  --light-secondary-bg-color: ;
+  --light-tertiary-bg-color: ;
+
+  /* Dark mode colors */
+  --dark-primary-color: #1b9fb6;
+  --dark-secondary-color: #af223a;
+  --dark-tertiary-color: #e6891f;
+  --dark-text-color: #eeeeee;
+  --dark-text-muted-color: #afafaf;
+  --dark-link-color: ;
+  --dark-primary-bg-color: #242b3d;
+  --dark-secondary-bg-color: #2d354a;
+  --dark-tertiary-bg-color: ;
+
+  /* general colors */
+  --faded-color: #56667c7c;
+  --success-color: #0fe962;
+  --danger-color: #dd2727;
+  --warning-color: #fce51b;
+
+  /* shadows */
+  --shadow: inset 2px 3px 10px #187ef331, 3px 3px #0000001f;
+}
+
+body,
+body[data-theme="light"] {
+  --primary-color: var(--light-primary-color);
+  --secondary-color: var(--light-secondary-color);
+  --tertiary-color: var(--light-tertiary-color);
+  --text-color: var(--light-text-color);
+  --text-muted-color: var(--light-text-muted-color);
+  --link-color: var(--light-link-color);
+  --primary-bg-color: var(--light-primary-bg-color);
+  --secondary-bg-color: var(--light-secondary-bg-color);
+  --tertiary-bg-color: var(--light-tertiary-bg-color);
+}
+
+body[data-theme="dark"] {
+  --primary-color: var(--dark-primary-color);
+  --secondary-color: var(--dark-secondary-color);
+  --tertiary-color: var(--dark-tertiary-color);
+  --text-color: var(--dark-text-color);
+  --text-muted-color: var(--dark-text-muted-color);
+  --link-color: var(--dark-link-color);
+  --primary-bg-color: var(--dark-primary-bg-color);
+  --secondary-bg-color: var(--dark-secondary-bg-color);
+  --tertiary-bg-color: var(--dark-tertiary-bg-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --primary-color: var(--dark-primary-color);
+    --secondary-color: var(--dark-secondary-color);
+    --tertiary-color: var(--dark-tertiary-color);
+    --text-color: var(--dark-text-color);
+    --text-muted-color: var(--dark-text-muted-color);
+    --link-color: var(--dark-link-color);
+    --primary-bg-color: var(--dark-primary-bg-color);
+    --secondary-bg-color: var(--dark-secondary-bg-color);
+    --tertiary-bg-color: var(--dark-tertiary-bg-color);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: Inter, sans-serif;
+  margin: 0;
+  background-color: var(--primary-bg-color);
+  color: var(--text-color);
+}
+
+image {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr min(64ch, calc(100% - 64px)) 1fr;
+  gap: 32px;
+}
+
+.container > * {
+  grid-column: 2;
+  padding-block: 2rem;
+}

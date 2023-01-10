@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guess A Card</title>
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/game.css" />
+
+    <!-- Game entry script -->
+    <script src="./javascript/app.js" type="module" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="guess-a-card ">
+        <div class="game">
+          <div class="game-title">
+            Guess A Card
+          </div>
+          <div class="game-dashboard">
+            <div class="game-dashboard-screen">
+              <p id="game-message"></p>
+            </div>
+
+            <div class="game-dashboard-items">
+              <div class="game-dashboard-item">
+                <span>Completed:</span>
+                <span><span id="completed"></span> / 8</span>
+              </div>
+
+              <div class="game-dashboard-item">
+                <span>Sneaks:</span>
+                <span><span id="sneaks"></span> left</span>
+              </div>
+
+              <div class="game-dashboard-item">
+                <span>Attempts:</span>
+                <span><span id="attempts"></span> left</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-cards" id="game-cards"></div>
+
+          <div class="game-controls">
+            <button class="game-controls-button" id="game-reset">Reset</button>
+            <button class="game-controls-button" id="game-sneak">Sneak</button>
+            <button class="game-controls-button" id="game-show">
+              Show all
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
