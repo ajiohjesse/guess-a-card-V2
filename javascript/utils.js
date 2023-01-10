@@ -40,8 +40,8 @@ export const elementCount = (arr, elem) => {
 //randomize index of elements in an array
 /**
  *
- * @param {Array} array of numbers to randomize
- * @param {Number} number of times each element will appear in the random array. Defaults to 1.
+ * @param {Array} arr Array of numbers to randomize
+ * @param {Number} times Number of times each element will appear in the randomized array. Defaults to 1.
  * @returns Array of randomized numbers
  */
 export const randomizeArray = (arr, times = 1) => {

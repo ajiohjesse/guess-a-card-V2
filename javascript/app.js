@@ -25,6 +25,27 @@ const showBtn = document.getElementById('game-show')
 const cardsEl = document.getElementById('game-cards')
 
 //*****************************************
+// SOUND EFFECTS
+//*****************************************
+const correctCardSND = new Audio('../assets/audio/correct-card.mp3')
+const wrongCardSND = new Audio('../assets/audio/wrong-card.mp3')
+const firstCardSND = new Audio('../assets/audio/first-card.mp3')
+const gameLostSND = new Audio('../assets/audio/game-lost.mp3')
+const gamePlayingSND = new Audio('../assets/audio/game-playing.mp3')
+const sneakSND = new Audio('../assets/audio/peak.mp3')
+const showCardSND = new Audio('../assets/audio/show-cards.mp3')
+const winSND = new Audio('../assets/audio/win.mp3')
+
+gamePlayingSND.volume = 0.1
+correctCardSND.volume = 0.25
+wrongCardSND.volume = 0.1
+firstCardSND.volume = 0.25
+gameLostSND.volume = 0.2
+sneakSND.volume = 0.25
+showCardSND.volume = 0.2
+winSND.volume = 0.2
+
+//*****************************************
 // EVENT LISTENERS
 //*****************************************
 document.addEventListener('DOMContentLoaded', resetGame)
@@ -45,6 +66,7 @@ let firstCard = null
 let secondCard = null
 let screenTimeout = null
 let sneakTime = 2000
+let cardsAreOpen = false
 
 //*****************************************
 // FUNCTIONS
@@ -52,6 +74,8 @@ let sneakTime = 2000
 
 function renderGame(e) {
   if (gameLost) return
+
+  playGameMusic()
 
   const target = e.target
   const targetId = target.dataset.id
@@ -64,8 +88,10 @@ function renderGame(e) {
     clickFirstCard = true
     firstCard = targetId
 
+    playSound(firstCardSND)
     showCard(target)
     renderScreen(sampleOne(firstCardMessages))
+
     return
   }
 
@@ -77,6 +103,7 @@ function renderGame(e) {
     brieflyShowCard(target)
     renderScreen(sampleOne(wrongCardMessages))
 
+    playSound(wrongCardSND)
     reduceAttempts()
     renderDashBoard()
 
@@ -86,20 +113,43 @@ function renderGame(e) {
   // second selection matches first
   showCard(target)
   renderScreen(sampleOne(correctCardMessages))
+  playSound(correctCardSND)
+
   openedCards.push(firstCard)
   clickFirstCard = false
 
   renderDashBoard()
+
+  //game won
+  if (openedCards.length === 8) gameWon()
 }
 
 function resetGame() {
   gameLost = false
+  cardsAreOpen = false
+
   renderCards()
   resetScreen()
   resetDashboard()
   addCardEvent()
   enableSneakBtn()
   hideAllCards()
+  stopGameMusic()
+}
+
+function playGameMusic() {
+  gamePlayingSND.loop = true
+  gamePlayingSND.play()
+}
+
+function stopGameMusic() {
+  gamePlayingSND.pause()
+  gamePlayingSND.currentTime = 0
+}
+
+function playSound(sound) {
+  sound.currentTime = 0
+  sound.play()
 }
 
 function renderCards() {
@@ -233,6 +283,7 @@ function sneak() {
     renderDashBoard()
     brieflyShowAllCards()
     brieflyDisableSneakBtn()
+    playSound(sneakSND)
     return
   }
 
@@ -242,16 +293,34 @@ function sneak() {
 }
 
 function endGame() {
+  cardsAreOpen = true
+
   showAllCards()
   removeCardEvent()
   disableSneakBtn()
   renderScreen('Thanks for Playing. Reset the game to play again.')
+  stopGameMusic()
+
+  if (!cardsAreOpen) playSound(showCardSND)
 }
 
 function gameFailed() {
   gameLost = true
+  cardsAreOpen = true
+
   renderScreen(sampleOne(gameLostMessages))
   showAllCards()
   removeCardEvent()
+  disableSneakBtn()
+  stopGameMusic()
+  playSound(gameLostSND)
+}
+
+function gameWon() {
+  cardsAreOpen = true
+
+  stopGameMusic()
+  playSound(winSND)
+  renderScreen('Congrats! Game won. you did a nice job.')
   disableSneakBtn()
 }
