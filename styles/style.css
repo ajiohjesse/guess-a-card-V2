@@ -98,7 +98,7 @@ button {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr min(64ch, calc(100% - 64px)) 1fr;
+  grid-template-columns: 1fr min(900px, calc(100% - 64px)) 1fr;
   gap: 32px;
 }
 
