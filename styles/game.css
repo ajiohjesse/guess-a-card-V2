@@ -96,8 +96,8 @@
 }
 
 .game-card.open::after {
-  width: 0;
-  transform: rotate(60deg);
+  /* width: 0; */
+  transform: rotateY(90deg);
 }
 
 .game-controls {
