@@ -10,6 +10,9 @@ import {
 // INTERFACE
 //*****************************************
 
+// sound toggle button
+const soundBtn = document.getElementById('sound-btn')
+
 //dashboard
 const screen = document.getElementById('game-message')
 const completedEl = document.getElementById('completed')
@@ -52,21 +55,27 @@ document.addEventListener('DOMContentLoaded', resetGame)
 resetBtn.addEventListener('click', resetGame)
 sneakBtn.addEventListener('click', sneak)
 showBtn.addEventListener('click', endGame)
+soundBtn.addEventListener('click', toggleSound)
 
 //*****************************************
 // VARIABLES
 //*****************************************
 
 let gameLost = false
+let isPlaying = false
 let clickFirstCard = false
+
 let openedCards = []
 let sneaks = 3
 let attempts = 10
+
 let firstCard = null
 let secondCard = null
 let screenTimeout = null
+
 let sneakTime = 2000
 let cardsAreOpen = false
+let shouldPlaySound = true
 
 //*****************************************
 // FUNCTIONS
@@ -80,6 +89,7 @@ function renderGame(e) {
 
   if (target.id === 'game-cards') return
 
+  isPlaying = true
   playGameMusic()
 
   if (!targetId) return brieflyRenderScreen('Card is already open.')
@@ -127,6 +137,7 @@ function renderGame(e) {
 
 function resetGame() {
   gameLost = false
+  isPlaying = false
   cardsAreOpen = false
 
   renderCards()
@@ -139,8 +150,10 @@ function resetGame() {
 }
 
 function playGameMusic() {
-  gamePlayingSND.loop = true
-  gamePlayingSND.play()
+  if (shouldPlaySound) {
+    gamePlayingSND.loop = true
+    gamePlayingSND.play()
+  }
 }
 
 function stopGameMusic() {
@@ -149,8 +162,19 @@ function stopGameMusic() {
 }
 
 function playSound(sound) {
-  sound.currentTime = 0
-  sound.play()
+  if (shouldPlaySound) {
+    sound.currentTime = 0
+    sound.play()
+  }
+}
+
+function toggleSound() {
+  shouldPlaySound = !shouldPlaySound
+  stopGameMusic()
+  
+  if (isPlaying) {
+    playGameMusic()
+  }
 }
 
 function renderCards() {
@@ -311,10 +335,12 @@ function endGame() {
 
   if (!cardsAreOpen) playSound(showCardSND)
   cardsAreOpen = true
+  isPlaying = false
 }
 
 function gameFailed() {
   gameLost = true
+  isPlaying = false
   cardsAreOpen = true
 
   renderScreen(sampleOne(gameLostMessages))
