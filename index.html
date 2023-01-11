@@ -17,10 +17,28 @@
     <div class="container">
       <div id="guess-a-card ">
         <div class="game">
-          <div class="game-title">
-            Guess A Card
+          <div class="game-head">
+            <span class="game-logo">Guess A Card</span>
+            <div class="game-results">
+              <div class="game-result-item">
+                <span>Correct</span>
+                <span><span id="completed">0</span> / 8</span>
+              </div>
+              <div class="game-result-item">
+                <span>Sneaks</span>
+                <span id="sneaks">3</span>
+              </div>
+              <div class="game-result-item">
+                <span>Attempts</span>
+                <span id="attempts">10</span>
+              </div>
+            </div>
           </div>
-          <div class="game-dashboard">
+
+          <div class="game-message" id="game-message">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui, a?
+          </div>
+          <!-- <div class="game-dashboard">
             <div class="game-dashboard-screen">
               <p id="game-message"></p>
             </div>
@@ -41,7 +59,7 @@
                 <span><span id="attempts"></span> left</span>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="game-cards" id="game-cards"></div>
 
