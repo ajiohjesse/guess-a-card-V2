@@ -1,17 +1,6 @@
 @import "../assets/fonts/fonts.css";
 
 :root {
-  /* Light mode colors */
-  --light-primary-color: ;
-  --light-secondary-color: ;
-  --light-tertiary-color: ;
-  --light-text-color: ;
-  --light-text-muted-color: ;
-  --light-link-color: ;
-  --light-primary-bg-color: ;
-  --light-secondary-bg-color: ;
-  --light-tertiary-bg-color: ;
-
   /* Dark mode colors */
   --dark-primary-color: #1b9fb6;
   --dark-secondary-color: #af223a;
@@ -22,31 +11,18 @@
   --dark-primary-bg-color: #242b3d;
   --dark-secondary-bg-color: #2d354a;
   --dark-tertiary-bg-color: ;
+  --dark-warning-color: #fce51b;
 
   /* general colors */
   --faded-color: #56667c7c;
   --success-color: #0fe962;
   --danger-color: #dd2727;
-  --warning-color: #fce51b;
 
   /* shadows */
   --shadow: inset 2px 3px 10px #187ef331, 3px 3px #0000001f;
 }
 
-body,
-body[data-theme="light"] {
-  --primary-color: var(--light-primary-color);
-  --secondary-color: var(--light-secondary-color);
-  --tertiary-color: var(--light-tertiary-color);
-  --text-color: var(--light-text-color);
-  --text-muted-color: var(--light-text-muted-color);
-  --link-color: var(--light-link-color);
-  --primary-bg-color: var(--light-primary-bg-color);
-  --secondary-bg-color: var(--light-secondary-bg-color);
-  --tertiary-bg-color: var(--light-tertiary-bg-color);
-}
-
-body[data-theme="dark"] {
+body {
   --primary-color: var(--dark-primary-color);
   --secondary-color: var(--dark-secondary-color);
   --tertiary-color: var(--dark-tertiary-color);
@@ -56,20 +32,7 @@ body[data-theme="dark"] {
   --primary-bg-color: var(--dark-primary-bg-color);
   --secondary-bg-color: var(--dark-secondary-bg-color);
   --tertiary-bg-color: var(--dark-tertiary-bg-color);
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    --primary-color: var(--dark-primary-color);
-    --secondary-color: var(--dark-secondary-color);
-    --tertiary-color: var(--dark-tertiary-color);
-    --text-color: var(--dark-text-color);
-    --text-muted-color: var(--dark-text-muted-color);
-    --link-color: var(--dark-link-color);
-    --primary-bg-color: var(--dark-primary-bg-color);
-    --secondary-bg-color: var(--dark-secondary-bg-color);
-    --tertiary-bg-color: var(--dark-tertiary-bg-color);
-  }
+  --warning-color: var(--dark-warning-color);
 }
 
 *,
@@ -78,12 +41,12 @@ body[data-theme="dark"] {
   box-sizing: border-box;
 }
 
-html,
 body {
   font-family: Inter, sans-serif;
   margin: 0;
   background-color: var(--primary-bg-color);
   color: var(--text-color);
+  margin-top: 60px;
 }
 
 image {
@@ -104,5 +67,106 @@ button {
 
 .container > * {
   grid-column: 2;
-  padding-block: 2rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+header {
+  background-color: var(--secondary-bg-color);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.logo {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.sound-btn {
+  border: none;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.sound-btn > span {
+  display: grid;
+  place-items: center;
+}
+
+main {
+  padding-block: 1rem;
+}
+
+footer {
+  background-color: var(--secondary-bg-color);
+}
+
+.footer-wrapper {
+  height: 60px;
+  display: grid;
+  place-content: center;
+  font-size: 0.825rem;
+  color: var(--text-muted-color);
+}
+
+.main-wrapper {
+  display: grid;
+  gap: 2rem;
+}
+
+.info {
+  display: grid;
+  gap: 1rem;
+}
+
+.info-card {
+  background-color: var(--secondary-bg-color);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.info-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-head > svg {
+  font-size: 2rem;
+}
+
+.info-desc {
+  line-height: 1.7;
+}
+
+.info-desc > a {
+  color: var(--primary-color);
+}
+
+@media (min-width: 900px) {
+  .main-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .info {
+    gap: 2rem;
+  }
 }

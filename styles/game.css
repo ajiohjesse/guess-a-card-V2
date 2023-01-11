@@ -1,4 +1,6 @@
 .game {
+  --game-font-size: 0.75rem;
+
   background-color: var(--secondary-bg-color);
   padding: 1rem;
   border-radius: 10px;
@@ -29,7 +31,7 @@
 .game-results {
   display: flex;
   gap: 8px;
-  font-size: 0.625rem;
+  font-size: var(--game-font-size);
   text-transform: capitalize;
   font-weight: 400;
 }
@@ -41,8 +43,8 @@
 }
 
 .game-message {
-  font-size: 0.625rem;
-  height: 30px;
+  font-size: var(--game-font-size);
+  height: 50px;
   line-height: 1.5;
 }
 
@@ -71,6 +73,7 @@
   box-shadow: var(--shadow);
   cursor: pointer;
   overflow: hidden;
+  position: relative;
 }
 
 .game-card-image {
@@ -88,7 +91,7 @@
   width: 100%;
   height: 100%;
   background-color: var(--primary-bg-color);
-  transition: all 300ms ease;
+  transition: all 250ms ease;
 }
 
 .game-card.open::after {
@@ -96,7 +99,7 @@
 }
 
 .game-card-image > img {
-  height: 30px;
+  height: 40px;
 }
 
 .game-controls {
@@ -106,9 +109,10 @@
 
 .game-controls-button {
   border: none;
-  font-size: 0.625rem;
-  height: 25px;
+  font-size: var(--game-font-size);
+  height: 30px;
   width: 60px;
+  min-width: max-content;
   border-radius: 4px;
   box-shadow: var(--shadow);
   background-color: rgb(13, 29, 53);
@@ -128,6 +132,10 @@
 }
 
 @media (min-width: 400px) {
+  .game {
+    --game-font-size: 0.875rem;
+    gap: 1.5rem;
+  }
   .game-card {
     height: 80px;
   }

@@ -1,4 +1,4 @@
-import { randomizeArray, range, sampleOne } from '../javascript/utils.js'
+import { randomizeArray, range, sampleOne } from './utils.js'
 import {
   correctCardMessages,
   firstCardMessages,
@@ -36,7 +36,7 @@ const sneakSND = new Audio('../assets/audio/peak.mp3')
 const showCardSND = new Audio('../assets/audio/show-cards.mp3')
 const winSND = new Audio('../assets/audio/win.mp3')
 
-gamePlayingSND.volume = 0.1
+gamePlayingSND.volume = 0.2
 correctCardSND.volume = 0.25
 wrongCardSND.volume = 0.1
 firstCardSND.volume = 0.25
@@ -75,12 +75,13 @@ let cardsAreOpen = false
 function renderGame(e) {
   if (gameLost) return
 
-  playGameMusic()
-
   const target = e.target
   const targetId = target.dataset.id
 
   if (target.id === 'game-cards') return
+
+  playGameMusic()
+
   if (!targetId) return brieflyRenderScreen('Card is already open.')
 
   //first selection
@@ -220,8 +221,8 @@ function brieflyShowAllCards() {
 }
 
 function resetScreen() {
-  screen.textContent = `How quickly can you memorize 
-  the position of the cards? Click on any card to 
+  screen.textContent = `Select a card and guess the 
+  position of it's matching pair. Click on any card to 
   start the game!`
 }
 
@@ -276,6 +277,14 @@ function enableSneakBtn() {
   sneakBtn.removeAttribute('disabled')
 }
 
+function brieflydisableShowBtn() {
+  showBtn.setAttribute('disabled', 'true')
+
+  setTimeout(() => {
+    showBtn.removeAttribute('disabled')
+  }, sneakTime)
+}
+
 function sneak() {
   sneaks--
 
@@ -283,6 +292,7 @@ function sneak() {
     renderDashBoard()
     brieflyShowAllCards()
     brieflyDisableSneakBtn()
+    brieflydisableShowBtn()
     playSound(sneakSND)
     return
   }
@@ -293,8 +303,6 @@ function sneak() {
 }
 
 function endGame() {
-  cardsAreOpen = true
-
   showAllCards()
   removeCardEvent()
   disableSneakBtn()
@@ -302,6 +310,7 @@ function endGame() {
   stopGameMusic()
 
   if (!cardsAreOpen) playSound(showCardSND)
+  cardsAreOpen = true
 }
 
 function gameFailed() {

@@ -4,51 +4,177 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Card pairing game built with vanilla javascript."
+    />
     <title>Guess A Card</title>
 
     <!-- stylesheets -->
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/game.css" />
 
-    <!-- Game entry script -->
-    <script src="./javascript/app.js" type="module" defer></script>
+    <!-- Game script -->
+    <script src="./javascript/game.js" type="module" defer></script>
+
+    <!-- webpage script -->
+    <script src="./javascript/index.js" defer></script>
   </head>
   <body>
-    <div class="container">
-      <div id="guess-a-card ">
-        <div class="game">
-          <div class="game-head">
-            <span class="game-logo">Guess A Card</span>
-            <div class="game-results">
-              <div class="game-result-item">
-                <span>Correct</span>
-                <span><span id="completed">0</span> / 8</span>
-              </div>
-              <div class="game-result-item">
-                <span>Sneaks</span>
-                <span id="sneaks">3</span>
-              </div>
-              <div class="game-result-item">
-                <span>Attempts</span>
-                <span id="attempts">10</span>
-              </div>
-            </div>
-          </div>
+    <header>
+      <div class="container">
+        <div class="header-wrapper">
+          <h1 class="logo">GUESS A CARD</h1>
+          <div class="options">
+            <button class="sound-btn" title="toggle sound" id="sound-btn">
+              <span class="sound-on">
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+              </span>
 
-          <div class="game-message" id="game-message"></div>
-
-          <!-- Cards are injected by javascript -->
-          <div class="game-cards" id="game-cards"></div>
-
-          <div class="game-controls">
-            <button class="game-controls-button" id="game-reset">Reset</button>
-            <button class="game-controls-button" id="game-sneak">Sneak</button>
-            <button class="game-controls-button" id="game-show">
-              Show all
+              <span class="sound-off hidden">
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                  <path d="M18.63 13A17.89 17.89 0 0 1 18 8"></path>
+                  <path
+                    d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"
+                  ></path>
+                  <path d="M18 8a6 6 0 0 0-9.33-5"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+              </span>
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="main-wrapper">
+          <div id="guess-a-card ">
+            <div class="game">
+              <div class="game-head">
+                <span class="game-logo">Guess A Card</span>
+                <div class="game-results">
+                  <div class="game-result-item">
+                    <span>Correct</span>
+                    <span><span id="completed">0</span> / 8</span>
+                  </div>
+                  <div class="game-result-item">
+                    <span>Sneaks</span>
+                    <span id="sneaks">3</span>
+                  </div>
+                  <div class="game-result-item">
+                    <span>Attempts</span>
+                    <span id="attempts">10</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="game-message" id="game-message"></div>
+
+              <!-- Cards are injected by javascript -->
+              <div class="game-cards" id="game-cards"></div>
+
+              <div class="game-controls">
+                <button class="game-controls-button" id="game-reset">
+                  Reset
+                </button>
+                <button class="game-controls-button" id="game-sneak">
+                  Sneak
+                </button>
+                <button class="game-controls-button" id="game-show">
+                  Show all
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="info-card">
+              <div class="info-head">
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                  ></path>
+                </svg>
+                <h2>GitHub</h2>
+              </div>
+              <p class="info-desc">
+                You can find the source code for this game via
+                <a href="/">this repository</a>. Feel free to clone, customize
+                and add your own features to the game.
+              </p>
+            </div>
+
+            <div class="info-card">
+              <div class="info-head">
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+                <h2>Blog</h2>
+              </div>
+              <p class="info-desc">
+                Introducing Guess a card, a simple game built with vanilla
+                javascript, html and css.
+                <a href="/">Read Post</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-wrapper">
+          &copy; 2023. Jesse Ajioh.
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
