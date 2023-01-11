@@ -71,6 +71,8 @@ let attempts = 10
 
 let firstCard = null
 let secondCard = null
+
+// Id for setTimout function on game screen
 let screenTimeout = null
 
 let sneakTime = 2000
@@ -87,6 +89,7 @@ function renderGame(e) {
   const target = e.target
   const targetId = target.dataset.id
 
+  // prevent game-cards wrapper from triggering game 
   if (target.id === 'game-cards') return
 
   isPlaying = true
@@ -131,7 +134,7 @@ function renderGame(e) {
 
   renderDashBoard()
 
-  //game won
+  //game won if all cards are opened
   if (openedCards.length === 8) gameWon()
 }
 
