@@ -64,9 +64,7 @@
 }
 
 .game-card {
-  position: relative;
-  padding-bottom: 100%;
-  aspect-ratio: 1/1;
+  height: 60px;
   background-color: var(--primary-bg-color);
   border-radius: 4px;
   border: 1px solid var(--faded-color);
@@ -76,10 +74,8 @@
 }
 
 .game-card-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  display: grid;
+  place-items: center;
   height: 100%;
   padding: 10px;
 }
@@ -96,8 +92,11 @@
 }
 
 .game-card.open::after {
-  /* width: 0; */
   transform: rotateY(90deg);
+}
+
+.game-card-image > img {
+  height: 30px;
 }
 
 .game-controls {
@@ -107,7 +106,6 @@
 
 .game-controls-button {
   border: none;
-  /* padding: 10px 20px; */
   font-size: 0.625rem;
   height: 25px;
   width: 60px;
@@ -126,6 +124,15 @@
 .game-controls-button:disabled {
   cursor: not-allowed;
   pointer-events: none;
-  background-color: var(--text-muted-color);
-  opacity: 0.6;
+  opacity: 0.4;
+}
+
+@media (min-width: 400px) {
+  .game-card {
+    height: 80px;
+  }
+
+  .game-card-image > img {
+    height: 50px;
+  }
 }
