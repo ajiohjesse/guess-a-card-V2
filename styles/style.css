@@ -130,6 +130,7 @@ footer {
 .main-wrapper {
   display: grid;
   gap: 2rem;
+  margin-block: 2rem;
 }
 
 .info {
