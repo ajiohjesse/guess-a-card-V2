@@ -60,14 +60,16 @@ soundBtn.addEventListener('click', toggleSound)
 //*****************************************
 // VARIABLES
 //*****************************************
+const DEFAULT_SNEAKS = 2
+const DEFAULT_ATTEMPTS = 15
 
 let gameLost = false
 let isPlaying = false
 let clickFirstCard = false
 
 let openedCards = []
-let sneaks = 3
-let attempts = 10
+let sneaks = DEFAULT_SNEAKS
+let attempts = DEFAULT_ATTEMPTS
 
 let firstCard = null
 let secondCard = null
@@ -77,7 +79,9 @@ let screenTimeout = null
 
 let sneakTime = 2000
 let cardsAreOpen = false
-let shouldPlaySound = true
+
+//get sound preference from local storage
+let shouldPlaySound = getShouldPlaySound()
 
 //*****************************************
 // FUNCTIONS
@@ -89,7 +93,7 @@ function renderGame(e) {
   const target = e.target
   const targetId = target.dataset.id
 
-  // prevent game-cards wrapper from triggering game 
+  // prevent game-cards wrapper from triggering game
   if (target.id === 'game-cards') return
 
   isPlaying = true
@@ -173,11 +177,22 @@ function playSound(sound) {
 
 function toggleSound() {
   shouldPlaySound = !shouldPlaySound
+  localStorage.setItem('game-sound', shouldPlaySound)
   stopGameMusic()
-  
+
   if (isPlaying) {
     playGameMusic()
   }
+}
+
+function getShouldPlaySound() {
+  const userPreference = localStorage.getItem('game-sound')
+
+  if (userPreference === null) {
+    return true
+  }
+
+  return JSON.parse(userPreference)
 }
 
 function renderCards() {
@@ -202,8 +217,8 @@ function renderCards() {
 
 function resetDashboard() {
   openedCards = []
-  sneaks = 3
-  attempts = 10
+  sneaks = DEFAULT_SNEAKS
+  attempts = DEFAULT_ATTEMPTS
   clickFirstCard = false
 
   renderDashBoard()

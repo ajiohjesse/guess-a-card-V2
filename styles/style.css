@@ -61,7 +61,7 @@ button {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr min(900px, calc(100% - 32px)) 1fr;
+  grid-template-columns: 1fr min(1000px, calc(100% - 32px)) 1fr;
   gap: 16px;
 }
 
@@ -120,8 +120,11 @@ footer {
   height: 60px;
   display: grid;
   place-content: center;
-  font-size: 0.825rem;
   color: var(--text-muted-color);
+}
+
+.footer-wrapper a {
+  color: var(--primary-color);
 }
 
 .main-wrapper {
