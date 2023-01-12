@@ -39,7 +39,7 @@ const sneakSND = new Audio('../assets/audio/peak.mp3')
 const showCardSND = new Audio('../assets/audio/show-cards.mp3')
 const winSND = new Audio('../assets/audio/win.mp3')
 
-gamePlayingSND.volume = 0.2
+gamePlayingSND.volume = 1
 correctCardSND.volume = 0.25
 wrongCardSND.volume = 0.1
 firstCardSND.volume = 0.25
@@ -72,7 +72,10 @@ let sneaks = DEFAULT_SNEAKS
 let attempts = DEFAULT_ATTEMPTS
 
 let firstCard = null
+let firstCardIndex = null
+
 let secondCard = null
+let secondCardIndex = null
 
 // Id for setTimout function on game screen
 let screenTimeout = null
@@ -92,6 +95,7 @@ function renderGame(e) {
 
   const target = e.target
   const targetId = target.dataset.id
+  const targetIndex = target.dataset.index
 
   // prevent game-cards wrapper from triggering game
   if (target.id === 'game-cards') return
@@ -99,12 +103,15 @@ function renderGame(e) {
   isPlaying = true
   playGameMusic()
 
-  if (!targetId) return brieflyRenderScreen('Card is already open.')
+  if (!targetId) {
+    return brieflyRenderScreen('Card is already open.')
+  }
 
   //first selection
   if (!clickFirstCard) {
     clickFirstCard = true
     firstCard = targetId
+    firstCardIndex = targetIndex
 
     playSound(firstCardSND)
     showCard(target)
@@ -115,6 +122,18 @@ function renderGame(e) {
 
   //second selection
   secondCard = targetId
+  secondCardIndex = targetIndex
+
+  /**
+   * check if;
+   * second card is EXACTLY the same as first
+   * meaning the user clicked same card
+   * twice instead of clicking the pair
+   */
+
+  if (secondCardIndex === firstCardIndex) {
+    return brieflyRenderScreen('Card is already open.')
+  }
 
   // second selection doesn't match first
   if (firstCard !== secondCard) {
@@ -203,8 +222,8 @@ function renderCards() {
    *  duplicate each array item to get icon pairs.
    */
   const HTMLString = randomizeArray(iconList, 2)
-    .map((iconNumber) => {
-      return `<div class="game-card" data-id="${iconNumber}">
+    .map((iconNumber, index) => {
+      return `<div class="game-card" data-id="${iconNumber}" data-index="${index}">
 <div class="game-card-image">
 <img src="./assets/icons/${iconNumber}.svg" alt="${iconNumber}" />
 </div>
@@ -303,13 +322,15 @@ function removeCardEvent() {
   cardsEl.removeEventListener('click', renderGame)
 }
 
-function brieflyDisableSneakBtn() {
-  sneakBtn.setAttribute('disabled', 'true')
+function breiflyRemoveCardEvent() {
+ removeCardEvent()
 
   setTimeout(() => {
-    sneakBtn.removeAttribute('disabled')
+    addCardEvent()
   }, sneakTime)
 }
+
+
 
 function disableSneakBtn() {
   sneakBtn.setAttribute('disabled', 'true')
@@ -317,6 +338,14 @@ function disableSneakBtn() {
 
 function enableSneakBtn() {
   sneakBtn.removeAttribute('disabled')
+}
+
+function brieflyDisableSneakBtn() {
+  disableSneakBtn()
+
+  setTimeout(() => {
+    enableSneakBtn()
+  }, sneakTime)
 }
 
 function brieflydisableShowBtn() {
@@ -335,6 +364,7 @@ function sneak() {
     brieflyShowAllCards()
     brieflyDisableSneakBtn()
     brieflydisableShowBtn()
+    breiflyRemoveCardEvent()
     playSound(sneakSND)
     return
   }
