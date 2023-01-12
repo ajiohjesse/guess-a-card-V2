@@ -27,6 +27,8 @@ const showBtn = document.getElementById('game-show')
 //cards
 const cardsEl = document.getElementById('game-cards')
 
+
+
 //*****************************************
 // SOUND EFFECTS
 //*****************************************
@@ -357,6 +359,8 @@ function brieflydisableShowBtn() {
 }
 
 function sneak() {
+  if (!isPlaying) return
+ 
   sneaks--
 
   if (sneaks >= 0) {
