@@ -17,7 +17,7 @@ export const range = (start, end, step = 1) => {
 
 /**
  * pick random element from array
- * @param {Array} arr
+ * @param {Array} arr Array
  * @returns random item from array
  */
 export const sampleOne = (arr) => {

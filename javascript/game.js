@@ -374,6 +374,7 @@ function gameWon() {
 
   stopGameMusic()
   playSound(winSND)
-  renderScreen('Congrats! Game won. you did a nice job.')
+  renderScreen('Congrats! Game won. You did a nice job.')
   disableSneakBtn()
+  removeCardEvent()
 }
